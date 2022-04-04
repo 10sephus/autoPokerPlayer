@@ -1,0 +1,459 @@
+package shared;
+syntax = "proto3";
+
+
+// message ClientMessage ================================================
+message ClientMessage {
+  LoginRequest loginRequest = 1;
+  LogoutRequest logoutRequest = 2;
+  RegisterRequest registerRequest  = 3;
+  RegisterRequest forgotRequest  = 4;
+  JoinTableRequest joinTableRequest  = 5;
+  ListTablesRequest listTablesRequest  = 6;
+  SubscribeToTableRequest subscribeToTableRequest  = 7;
+  ExchangeRatesRequest exchangeRatesRequest  = 8;
+  GlobalChatRequest globalChatRequest  = 9;
+  TournamentSubscriptionRequest tournamentSubscriptionRequest  = 10;
+  LeaveTableRequest leaveTableRequest  = 11;
+  FoldRequest fold  = 12;
+  BetRequest bet  = 13;
+  FundAccountRequest fundAccountRequest = 14;
+  AccountWithdrawlRequest accountWithdrawlRequest = 15;
+  SetTableOptionRequest setTableOptionRequest  = 16;
+  ChatRequest chatRequest  = 17;
+  CashOutRequest cashOutRequest = 18;
+  GetAccountSettingsRequest getAccountSettingsRequest = 19;
+  SetAccountSettingsRequest setAccountSettingsRequest  = 20;
+  TransferFundsRequest transferFundsRequest  = 21;
+  PingRequest ping  = 22;
+  TournamentRegisterRequest tournamentRegisterRequest = 23;
+  PaymentHistoryRequest paymentHistoryRequest  = 24;
+  TournamentInfoRequest tournamentInfoRequest  = 25;
+  RebuyRequest rebuyRequest  = 26;
+}
+// #1
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+// #2
+message LogoutRequest {
+
+}
+
+// #3
+message RegisterRequest {
+
+}
+
+// #4
+// message RegisterRequest {
+
+// }
+
+// #5
+message JoinTableRequest {
+  int64 amount = 1;
+  int32 seat = 2;
+  string tableId = 3;
+}
+
+// #6
+message ListTablesRequest {
+
+}
+
+// #7
+message SubscribeToTableRequest {
+  string tableId = 1;
+  string tournamentId = 2;
+}
+
+// #8
+message ExchangeRatesRequest {
+
+}
+
+// #9
+message GlobalChatRequest {
+  bool initialData = 1;
+  string messager = 2;
+}
+
+// #10
+message TournamentSubscriptionRequest {
+
+}
+
+// #11
+message LeaveTableRequest {
+  string tableId = 1;
+}
+
+// #12
+message FoldRequest {
+  string tableId = 1;
+}
+
+// #13
+message BetRequest {
+  string tableId = 1;
+  int32 amount = 2;
+}
+
+// #14
+message FundAccountRequest {
+  string currency = 1;  
+}
+
+// #15
+message AccountWithdrawlRequest {
+
+}
+
+// #16
+message SetTableOptionRequest {
+  string tableId = 1;
+  bool sitOutNextHand = 2;
+  bool autoCheck = 3;
+  bool autoFold = 4;
+}
+
+// #17
+message ChatRequest {
+
+}
+
+// #18
+message CashOutRequest {
+
+}
+
+// #19
+message GetAccountSettingsRequest {
+
+}
+
+// #20
+message SetAccountSettingsRequest {
+
+}
+
+// #21
+message TransferFundsRequest {
+
+}
+
+// #22
+message PingRequest {
+
+}
+
+// #23
+message TournamentRegisterRequest {
+
+}
+
+// #24
+message PaymentHistoryRequest {
+
+}
+
+// #25
+message TournamentInfoRequest {
+
+}
+
+// #26
+message RebuyRequest {
+
+}
+
+// message ClientMessage END ============================================
+
+// message DataContainer ================================================
+
+message DataContainer {
+  LoginResult loginResult = 1;
+  UserData user = 2;
+  GlobalChatResult globalChatResult = 3;
+  TableConfigs tableConfigs = 4;
+  ChatMessageResult chatMessageResult = 5;
+  SubscribeTableResult subscribeTableResult = 6;
+  GameEvent game = 7;
+  TableSeatEvents tableSeatEvents = 8;
+  GameStartingEvent gameStarting = 9;
+  DealHoleCardsEvent deal = 10;
+  PokerError error = 11;
+  FundAccountResult fundAccountResult = 12;
+  accountFunded accountFunded = 13;
+  AccountWithdrawlResult accountWithdrawlResult = 14;
+  GlobalUsers globalUsers = 15;
+  CashOutRequestResult cashOutRequestResult = 16;
+  SetTableOptionResult setTableOptionResult = 17;
+  GetAccountSettingsResult accountSettings = 18;
+  SetAccountSettingsResult setAccountSettingsResult = 19;
+  TableClosed tableClosed = 20;
+  TransferFundsResult transferFundsResult = 21;
+  ExchangeRateResult exchangeRates = 22;
+  Pong pong = 23;
+  LogoutResult logoutResult = 24;
+  RegisterResult registerResult = 25;
+  TournamentSubscriptionResult tournamentSubscriptionResult = 26;
+  ForgotResult forgotResult = 27;
+  TournamentResultView tournamentResult = 28;
+  PaymentHistoryResult paymentHistoryResult = 29;  
+  TournamentInfoResult tournamentInfoResult = 30;  
+  Version version = 31;  
+  DuplicateIpAddress duplicateIpAddress = 32;  
+}
+
+// #1
+message LoginResult {
+  bool success = 1;  
+  string errorMessage = 2;    
+  string sid = 3;      
+  string version = 4;    
+}
+
+// #2
+message UserData {
+  string guid = 1;
+  string screenName = 2;
+  repeated Account accounts = 3;
+  bool initialData = 4;
+  bool notifyUserStatus = 5;  
+}
+
+// #3
+message GlobalChatResult {
+}
+
+// #4
+message TableConfigs {
+  repeated TableViewRow rows = 4;
+}
+
+// #5
+message ChatMessageResult {
+}
+
+// #6
+message SubscribeTableResult {
+  string tableId = 1;
+  bool shutdownRequested = 2;
+  TableViewRow tableConfig = 3;
+  string tournamentId = 4;
+  NextBlind nextBlind = 5;
+}
+
+// #7
+message GameEvent {
+  repeated double pot = 1;
+  double tocall = 2;
+  string action = 3;
+  bool chipsToPot = 4;
+  string street = 5;
+  repeated PotResult potResults = 6;
+  int32 dealer = 7;
+  repeated string board = 8;
+  string tableId = 9;
+  double lastRaise = 10;
+}
+
+// #8
+message TableSeatEvents {
+  string tableSeatEvents = 1;
+  repeated TableSeatEvent seats = 2;    
+}
+
+// #9
+message GameStartingEvent {
+  int32 startsInNumSeconds = 1;
+  bool isStarting = 2;
+  BlindsChangingEvent blindsChanging = 3;
+  NextBlind nextBlind = 4;
+  string tableId = 5;
+}
+
+// #10
+message DealHoleCardsEvent {
+    string holecards = 1;
+    repeated string board = 2;
+    string tableId = 3;
+}
+
+// #11
+message PokerError {
+  string message = 1;
+}
+
+// #12
+message FundAccountResult {
+}
+
+// #13
+message accountFunded {
+  double balance = 1;
+  int32 confirmations = 2;
+  string currency = 3;
+  double paymentReceived = 4;
+}
+
+// #14
+message AccountWithdrawlResult {
+}
+
+// #15
+message GlobalUsers {
+  bool initialData = 1;
+  UserStatus users = 2;
+}
+
+// #16
+message CashOutRequestResult {
+}
+
+// #17
+message SetTableOptionResult {
+}
+
+// #18
+message GetAccountSettingsResult {
+}
+
+// #19
+message SetAccountSettingsResult {
+}
+
+// #20
+message TableClosed {
+}
+
+// #21
+message TransferFundsResult {
+}
+
+// #22
+message ExchangeRateResult {
+}
+
+// #23
+message Pong {
+}
+
+// #24
+message LogoutResult {
+}
+
+// #25
+message RegisterResult {
+}
+
+// #26
+message TournamentSubscriptionResult {
+}
+
+// #27
+message ForgotResult {
+}
+
+// #28
+message TournamentResultView {
+}
+
+// #29
+message PaymentHistoryResult {
+}
+
+// #30
+message TournamentInfoResult {
+}
+
+// #31
+message Version {
+  string version = 1;
+  string appName = 2;
+  string appSupportEmail = 3;
+  string cdn = 4;
+}
+
+// #32
+message DuplicateIpAddress {
+}
+
+
+// MISC
+// DataContainer => UserData => Account
+message Account{
+  string currency = 1;
+  float balance = 2;
+  string refundAddress = 3;
+}
+// DataContainer => SubscribeTableResult => TableViewRow
+message TableViewRow {
+  string _id = 1;
+  string name = 2;
+  double smallBlind = 3;
+  double smallBlindUsd = 4;
+  double bigBlind = 5;
+  double bigBlindUsd = 6;
+  string currency = 7;
+  double exchangeRate = 8;
+  int32 timeToActSec = 9;
+  int32 maxPlayers = 10;
+  int32 numPlayers = 11;
+  int32 maxBuyIn = 12;
+  string tournamentId = 13;
+}
+// DataContainer => SubscribeTableResult => NextBlind
+message NextBlind {
+  int32 smallBlind = 1;
+  int32 bigBlind = 2;
+  int32 remainingSec = 3;
+}
+
+// DataContainer => GlobalUsers => UserStatus
+message UserStatus {
+  string country = 1;
+  string countryCode = 2;
+  bool online = 3;
+  string screenName = 4;  
+}
+
+// DataContainer => GameEvent => PotResult
+message PotResult {
+  repeated int32 seatWinners = 1;
+  string winningHand = 2;
+  string bestHandCards = 3;
+  int32 amount = 4;
+  string amountFormatted = 5;
+}
+
+// DataContainer => GameStartingEvent => BlindsChangingEvent
+message BlindsChangingEvent {
+  int32 smallBlind = 1;
+  int32 bigBlind = 2;
+}
+
+// DataContainer => TableSeatEvents => TableSeatEvent
+message TableSeatEvent {
+    string name = 1;
+    int32 seat = 2;
+    double stack = 3;
+    bool empty = 4;
+    bool playing = 5;
+    string guid = 6;
+    repeated string playercards = 7;
+    double bet = 8;
+    bool myturn = 9;
+    bool hasFolded = 10;
+    bool hasRaised = 11;
+    bool hasCalled = 12;
+    bool isSittingOut = 13;
+    int32 timeToActSec = 14;
+    string avatar = 15;
+}
+
+// message DataContainer END ============================================
