@@ -1,6 +1,6 @@
 const protobuf = require('protobufjs');
 const WebSocket = require('ws');
-const gDataContainer = require('./classes.js');
+// const gDataContainer = require('./classes.js');
 let TableAction = require('./TableAction');
 let Config = require('./Config.js');
 

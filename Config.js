@@ -5,7 +5,7 @@ class Config {
         // this.wsServer = "ws://YX1:8111/ws";
         //this.wsServer = "ws://34.89.40.196/ws";
         this.wsServer = "ws://cryptopoker.fun/ws";
-        this.maxSeat = 3;
+        this.maxSeat = 5;
         this.sitDelay = 2000;
         // this.wsServer = "ws://cryptopoker.fun/ws";
         // this.wsServer = "ws://cryptopoker.fun//ws";

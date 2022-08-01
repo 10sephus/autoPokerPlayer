@@ -2,17 +2,17 @@ let Config = require('./Config.js');
 let config = new Config();
 
 const myArgs = process.argv.slice(2);
-if (myArgs.length > 0) {
   console.log('myArgs: ', myArgs);
-//   mySeat = myArgs[1];
-  myTable = myArgs[0];
-}
-myTable = 1;
+//   mySeat ? myArgs[1] | 3;
+  myArgs[0] ? mySeat = myArgs[0] : mySeat = 3;
+  myArgs[1] ? myTable = myArgs[1] : myTable = 0;
+//   myTable = myArgs[0] | 0;
+// myTable = 0;
 
 const {
     mainModule
 } = require('process');
-let Bottino = require('./Bottino');
+let Bottino = require('./autoPlayer');
 
 let bottino = new Array();
 // let bottin1 = new Array();
