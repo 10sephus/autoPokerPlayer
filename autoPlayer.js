@@ -13,7 +13,7 @@ class Bottino {
     constructor() {
         let config = new Config();
         this.tableAction = new TableAction();
-       
+
         this.ws;
         this.mySeat;
         this.MyTable;
@@ -29,9 +29,9 @@ class Bottino {
         this.tableId;
         this.sleep(this.awaitRandom());
         this.root;
-        this.justSubscribed=false;
-        this.justFunding=false;
-    // await sleep(this.awaitRandom());
+        this.justSubscribed = false;
+        this.justFunding = false;
+        // await sleep(this.awaitRandom());
         // await sleep(this.awaitRandom());
         // await sleep(this.awaitRandom());
         // await sleep(this.awaitRandom());
@@ -47,10 +47,10 @@ class Bottino {
         this.tableId = "";
         this.playing = false;
         this.tableAction.ping(this.ClientMessage, this.ws1);
-        this.pingTimer = setTimeout(() => { this.tableAction.ping(this.ClientMessage, this.ws1, this.pingTimer)}, 20000);
+        this.pingTimer = setTimeout(() => { this.tableAction.ping(this.ClientMessage, this.ws1, this.pingTimer) }, 20000);
 
-        this.ws1.onmessage = async (thisMessage) => { 
-            this.receiveMessage(thisMessage); 
+        this.ws1.onmessage = async (thisMessage) => {
+            this.receiveMessage(thisMessage);
         }
         this.tableAction.TableRequest(this.ClientMessage, this.ws1);
         await this.sleep(1000);
@@ -65,15 +65,10 @@ class Bottino {
         let myStack = 0;
         const obj = await this.DataContainer.decode(thisMessage.data);
         // console.log(obj);
-        if (obj.pong) {
-            this.pingTimer = setTimeout(() => { this.tableAction.ping(this.ClientMessage, this.ws1, this.pingTimer)}, 10000);
-            this.tableAction.SitInOut(this.ClientMessage, this.ws1, this.tableId, false);
-        }
 
-        // retrieves tableId first time only
         if (obj?.tableConfigs !== null && this.tableId == "") {
             // this.tableId = (obj.tableConfigs.rows[this.myTable]._id);
-            if (obj.tableConfigs.rows.length>1) {
+            if (obj.tableConfigs.rows.length > 1) {
                 this.tableId = (obj.tableConfigs.rows[this.myTable]._id);
                 // for(let counter = 0; counter < obj.tableConfigs.rows.length; counter++) {
                 //     if (obj.tableConfigs.rows[counter].numPlayers<6) {
@@ -85,14 +80,22 @@ class Bottino {
                 // }
                 console.log(obj.tableConfigs.rows[0].numPlayers);
             }
-        } 
+        }
+        if (obj.pong) {
+            this.pingTimer = setTimeout(() => { this.tableAction.ping(this.ClientMessage, this.ws1, this.pingTimer) }, 10000);
+            if (this.tableId != "") {
+                this.tableAction.SitInOut(this.ClientMessage, this.ws1, this.tableId, false);
+            }
+        }
+
+        // retrieves tableId first time only
         if (this.justSubscribed) {
             await this.sleep(1000);
             console.log("subscribed");
             this.tableAction.FundAccount(this.ClientMessage, this.ws1);
-            this.justSubscribed=false;
+            this.justSubscribed = false;
             this.justFunding = true;
-        } 
+        }
         if ((this.justFunding)) {
             await this.sleep(1000);
             console.log("joining");
@@ -134,7 +137,7 @@ class Bottino {
                 console.log("dado e': " + dado);
                 if (dado < 2) { // call
                     console.log("I'm calling");
-                    tocall>myStack ? tocall = myStack: tocall;
+                    tocall > myStack ? tocall = myStack : tocall;
                     await this.sleep(randomT);
                     tocall == 0 ? await this.tableAction.bet(this.ClientMessage, this.ws1, this.tableId, 0) : await this.tableAction.bet(this.ClientMessage, this.ws1, this.tableId, tocall);
                 } else if (dado >= 2 && dado < 9) { // fold
@@ -144,7 +147,7 @@ class Bottino {
                 } else if (dado >= 9) {
                     console.log("bet or raising");
                     await this.sleep(randomT);
-                    (tocall*3>myStack) ? raiseSize = myStack: raiseSize = tocall*3;
+                    (tocall * 3 > myStack) ? raiseSize = myStack : raiseSize = tocall * 3;
                     tocall == 0 ? await this.tableAction.bet(this.ClientMessage, this.ws1, this.tableId, 3000) : await await this.tableAction.bet(this.ClientMessage, this.ws1, this.tableId, raiseSize);
                 }
             }

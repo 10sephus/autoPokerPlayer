@@ -4,7 +4,7 @@ let config = new Config();
 const myArgs = process.argv.slice(2);
   console.log('myArgs: ', myArgs);
 //   mySeat ? myArgs[1] | 3;
-  myArgs[0] ? mySeat = myArgs[0] : mySeat = 3;
+  myArgs[0] ? mySeat = myArgs[0] : mySeat = 7;
   myArgs[1] ? myTable = myArgs[1] : myTable = 0;
 //   myTable = myArgs[0] | 0;
 // myTable = 0;
